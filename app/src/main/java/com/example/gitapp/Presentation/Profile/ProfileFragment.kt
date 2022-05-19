@@ -1,4 +1,4 @@
-package com.example.gitapp.Presentation
+package com.example.gitapp.Presentation.Profile
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

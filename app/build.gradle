@@ -1,10 +1,14 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-}
-plugins {
+    id "kotlin-android"
     id 'kotlin-kapt'
+
 }
+
+
+
+
 android {
     compileSdk 32
 
@@ -40,6 +44,9 @@ android {
 
 dependencies {
 
+    implementation project(path: ':core')
+
+
     def dagger_version = "2.40.5"
 
     implementation 'androidx.core:core-ktx:1.7.0'
@@ -56,5 +63,15 @@ dependencies {
 
     implementation "com.google.dagger:dagger:$dagger_version"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
+
+    implementation 'com.squareup.retrofit2:retrofit:2.2.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.2.0'
+    implementation 'com.squareup.okhttp3:okhttp:4.2.1'
+
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+
+
+
+
 
 }
