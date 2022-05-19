@@ -9,13 +9,13 @@ import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
-abstract  class NetworkModule {
+ class NetworkModule {
     @Singleton
     @Provides
     fun provideRetrofit(): Retrofit {
         return Retrofit.Builder()
+            .baseUrl("https://api.github.com")
             .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl("YOUR_BASE_URL")
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
 

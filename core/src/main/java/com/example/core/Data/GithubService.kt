@@ -1,15 +1,19 @@
 package com.example.core.Data
 
-import com.example.core.Domain.GitHubProfile
+import com.example.core.Domain.User
 import io.reactivex.Observable
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.Query
+import retrofit2.http.*
+
 
 interface GithubService {
 
 
+
     @GET("/user")
-    fun searchRepos(@Header("Accept")  credentials :String): Observable<GitHubProfile>
+    fun Autintificate(@Header("Authorization") accessToken: String): Observable<User>
+
+
+    @GET("/users/{username}")
+    fun getUser(@Path("username") username: String?): Observable<User>
 
 }
