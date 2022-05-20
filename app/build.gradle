@@ -2,13 +2,9 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id "kotlin-android"
-    id 'kotlin-kapt'
-
 }
-
-
-
-
+apply plugin: 'kotlin-kapt'
+apply plugin: "androidx.navigation.safeargs"
 android {
     compileSdk 32
 
@@ -61,6 +57,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
 
+
     implementation "com.google.dagger:dagger:$dagger_version"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
 
@@ -71,6 +68,9 @@ dependencies {
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
 
 
+    // glide for images
+    implementation 'com.github.bumptech.glide:glide:4.8.0'
+    kapt 'com.github.bumptech.glide:compiler:4.7.1'
 
 
 
