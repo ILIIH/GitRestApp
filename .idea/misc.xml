@@ -9,7 +9,9 @@
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.340625" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.35625" />
+        <entry key="app/src/main/res/layout/head.xml" value="0.18177083333333333" />
         <entry key="app/src/main/res/layout/headar.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/repo_item.xml" value="0.5" />
       </map>
     </option>
   </component>

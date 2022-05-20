@@ -7,8 +7,6 @@ import retrofit2.http.*
 
 interface GithubService {
 
-
-
     @GET("/user")
     fun Autintificate(@Header("Authorization") accessToken: String): Observable<User>
 

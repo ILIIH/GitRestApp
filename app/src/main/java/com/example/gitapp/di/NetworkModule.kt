@@ -1,5 +1,6 @@
 package com.example.gitapp.di
 
+import com.example.core.Data.GithubRepository
 import com.example.core.Data.GithubService
 import dagger.Module
 import dagger.Provides
@@ -27,4 +28,6 @@ import javax.inject.Singleton
     fun provideApi(retrofit: Retrofit): GithubService {
         return retrofit.create(GithubService::class.java)
     }
+
+
 }
