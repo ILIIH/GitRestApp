@@ -77,8 +77,8 @@ class ProfileAdapter()  : ListAdapter<UiModel, ViewHolder>(DiffCallback()) {
         fun bind(item: User) {
             Glide.with(binding.Avatar.context).load(Uri.parse(item.avatar_url)).into( binding.Avatar)
             binding.NickName.text = item.login
-            binding.CountPublicRepository.text = item.public_repos.toString()
-            binding.MemoryUsage.text = item.disk_usage.toString()
+            binding.CountPublicRepository.text = "public repository : "+ item.public_repos.toString()
+            binding.MemoryUsage.text = item.disk_usage.toString() + " Mb"
             binding.executePendingBindings()
         }
 
@@ -97,8 +97,8 @@ class ProfileAdapter()  : ListAdapter<UiModel, ViewHolder>(DiffCallback()) {
 
         fun bind(item: Repo) {
             binding.RepoName.text = item.name
-            binding.Description.text = item.description
-            binding.Stars.text = item.stars.toString()
+            binding.Language.text = item.language
+            binding.Stars.text = item.stars.toString() + "⭐"
             binding.executePendingBindings()
         }
 

@@ -5,8 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.core.Domain.Repo
+import com.example.core.Domain.helpers.Result
+import com.example.gitapp.Presentation.Login.LoginFragmentDirections
 import com.example.gitapp.Presentation.Login.LoginViewModel
 import com.example.gitapp.Presentation.Login.LoginViewModelFactory
 import com.example.gitapp.R
@@ -41,10 +45,16 @@ class ProfileFragment : Fragment() {
 
         val current_user = ProfileFragmentArgs.fromBundle(requireArguments()).user
 
-        var listR = LinkedList<Repo>()
-        listR.add(Repo(1,"MyRepo","Name","Descroiption","asd",23,2,"Java"))
+        ViewModel.repo.observe(viewLifecycleOwner) { result ->
+            when (result) {
+                is Result.Success ->profile_adaptor.addHeaderAndSubmitList(result.data,current_user)
+                is Result.Error -> Toast.makeText(context, "Error could not download your repository", Toast.LENGTH_SHORT).show()
+            }
 
-        profile_adaptor.addHeaderAndSubmitList(listR,current_user)
+        }
+
+
+
 
         ViewModel.setsUser(current_user)
 

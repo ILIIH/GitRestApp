@@ -12,4 +12,5 @@ class GithubRepository @Inject constructor(val gitServise : GithubService ) {
 
     fun Autentificate (token : String ) = gitServise.Autintificate("token ${token}").subscribeOn(Schedulers.io());
 
+    fun GetRepository ( UserName : String) =  gitServise.getRepo(UserName).subscribeOn(Schedulers.io());
 }
