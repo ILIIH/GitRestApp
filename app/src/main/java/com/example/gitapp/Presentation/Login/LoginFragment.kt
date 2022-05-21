@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.example.core.Domain.helpers.ErrorEntity
 import com.example.gitapp.databinding.FragmentLoginBinding
 import com.example.gitapp.di.MyApplication
 import javax.inject.Inject
@@ -37,7 +38,12 @@ class LoginFragment : Fragment() {
         ViewModel.user.observe( requireActivity()) { result -> when(result) {
             is Result.Success ->
                 findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToProfileFragment(result.data))
-            is Result.Error -> Toast.makeText(context,"Error ",Toast.LENGTH_SHORT).show()
+            is Result.Error ->
+                when (result.error){
+                is ErrorEntity.Credentials -> Toast.makeText(context, "Error wrong credentials", Toast.LENGTH_SHORT).show()
+                is ErrorEntity.Network -> Toast.makeText(context, "Error no internet", Toast.LENGTH_SHORT).show()
+                is ErrorEntity.MissTocken -> Toast.makeText(context, "Wrong token", Toast.LENGTH_SHORT).show()
+            }
         }
         }
 
@@ -45,7 +51,7 @@ class LoginFragment : Fragment() {
 
 
         bindidg.EnterButton.setOnClickListener {
-            ViewModel.autintificate(bindidg.AuthToken.editText!!.text.toString())
+            ViewModel.autintificate(bindidg.AuthToken.editText!!.text.toString(),bindidg.UserName.editText!!.text.toString() )
         }
 
         return bindidg.root
