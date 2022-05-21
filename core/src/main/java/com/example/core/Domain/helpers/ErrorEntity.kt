@@ -3,13 +3,8 @@ package com.example.core.Domain.helpers
 sealed class ErrorEntity{
     object Network : ErrorEntity()
 
-    object NotFound : ErrorEntity()
+    object Credentials : ErrorEntity()
 
-    object AccessDenied : ErrorEntity()
-
-    object ServiceUnavailable : ErrorEntity()
-
-    object Unknown : ErrorEntity()
-
+    object MissTocken : ErrorEntity()
 
 }

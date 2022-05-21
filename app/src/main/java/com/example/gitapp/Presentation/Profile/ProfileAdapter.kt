@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.example.core.Domain.Repo
 import com.example.core.Domain.User
 import com.example.gitapp.R
@@ -75,7 +77,9 @@ class ProfileAdapter()  : ListAdapter<UiModel, ViewHolder>(DiffCallback()) {
     class HeadViewHolder private constructor(val binding: HeadBinding) : ViewHolder(binding.root){
 
         fun bind(item: User) {
-            Glide.with(binding.Avatar.context).load(Uri.parse(item.avatar_url)).into( binding.Avatar)
+            Glide.with(binding.Avatar.context).load(Uri.parse(item.avatar_url))
+                .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
+                .apply(RequestOptions.skipMemoryCacheOf(true)).into( binding.Avatar)
             binding.NickName.text = item.login
             binding.CountPublicRepository.text = "public repository : "+ item.public_repos.toString()
             binding.MemoryUsage.text = item.disk_usage.toString() + " Mb"

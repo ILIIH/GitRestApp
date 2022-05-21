@@ -19,12 +19,24 @@ class LoginViewModel (private val Repository: GithubRepository) :ViewModel() {
     val user : LiveData<Result<User>>
         get() = _user
 
-    fun autintificate(token:String){
+    fun autintificate(token:String, Login : String){
+
+        if(Login.length<4||token.length<8) {
+            _user.postValue(Result.Error(ErrorEntity.Credentials))
+            return
+        }
 
         Repository.Autentificate(token).
         subscribe(
-        { next_item ->_user.postValue(Result.Success(next_item)) },
-        {error -> _user.postValue(Result.Error(ErrorEntity.Network))}
+        { next_item ->
+            if(next_item.login.equals(Login))_user.postValue(Result.Success(next_item))
+            else _user.postValue(Result.Error(ErrorEntity.Credentials))
+             },
+        { Error ->
+            var measage = Error.message ;
+            if(Error.message.equals("HTTP 401"))_user.postValue(Result.Error(ErrorEntity.Credentials))
+            else if(Error.message.equals("Unable to resolve host "))_user.postValue(Result.Error(ErrorEntity.Network))
+            }
         )
 
     }
