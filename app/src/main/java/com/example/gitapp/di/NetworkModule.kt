@@ -1,6 +1,6 @@
 package com.example.gitapp.di
 
-import com.example.gitapp.framework.GithubService
+import com.example.gitapp.framework.network.GithubService
 import com.example.gitapp.util.baceURL
 import dagger.Module
 import dagger.Provides

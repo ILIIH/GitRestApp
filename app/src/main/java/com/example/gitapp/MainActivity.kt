@@ -1,9 +1,7 @@
 package com.example.gitapp
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.gitapp.di.AppComponent
-import com.example.gitapp.di.DaggerAppComponent
+import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -11,5 +9,4 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
     }
-
 }

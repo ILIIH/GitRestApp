@@ -22,7 +22,9 @@
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" >
 
-        <argument android:name="User"
-            app:argType="com.example.core.Domain.User"/>
+
+        <argument
+            android:name="User"
+            app:argType="com.example.gitapp.framework.network.UserNetworkEntity" />
     </fragment>
 </navigation>

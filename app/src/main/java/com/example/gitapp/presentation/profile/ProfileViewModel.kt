@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.core.Domain.Repo
 import com.example.core.Domain.User
-import com.example.core.Domain.helpers.ErrorEntity
 import com.example.core.Domain.helpers.Result
 import com.example.gitapp.framework.GithubRepository
 
@@ -15,17 +14,12 @@ class ProfileViewModel(private val Repository: GithubRepository) : ViewModel() {
     val user: LiveData<User>
         get() = _user
 
-    private var _repo = MutableLiveData<Result<List<Repo>>>()
+    private var _repo = Repository.repo
     val repo: LiveData<Result<List<Repo>>>
         get() = _repo
 
     fun setsUser(current_user: User) {
         _user.postValue(current_user)
-
-        Repository.GetRepository(current_user.login)
-            .subscribe(
-                { next_item -> _repo.postValue(Result.Success(next_item)) },
-                { _repo.postValue(Result.Error(ErrorEntity.Network)) }
-            )
+        Repository.getRepository(current_user.login)
     }
 }

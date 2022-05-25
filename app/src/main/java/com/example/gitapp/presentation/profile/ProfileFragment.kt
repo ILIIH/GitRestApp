@@ -7,10 +7,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.core.Domain.User
 import com.example.core.Domain.helpers.Result
 import com.example.gitapp.R
 import com.example.gitapp.databinding.FragmentProfileBinding
 import com.example.gitapp.di.MyApplication
+import com.example.gitapp.util.asUserDomain
 import javax.inject.Inject
 
 class ProfileFragment : Fragment() {
@@ -37,12 +39,12 @@ class ProfileFragment : Fragment() {
 
         ViewModel.repo.observe(viewLifecycleOwner) { result ->
             when (result) {
-                is Result.Success -> profileAdaptor.addHeaderAndSubmitList(result.data, currentUser)
+                is Result.Success -> profileAdaptor.addHeaderAndSubmitList(result.data, currentUser.asUserDomain())
                 is Result.Error -> Toast.makeText(context, getString(R.string.RepositoryError), Toast.LENGTH_SHORT).show()
             }
         }
 
-        ViewModel.setsUser(currentUser)
+        ViewModel.setsUser(currentUser.asUserDomain())
 
         return view.root
     }

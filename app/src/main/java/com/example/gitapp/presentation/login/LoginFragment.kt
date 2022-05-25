@@ -15,6 +15,7 @@ import com.example.core.Domain.helpers.Result
 import com.example.gitapp.R
 import com.example.gitapp.databinding.FragmentLoginBinding
 import com.example.gitapp.di.MyApplication
+import com.example.gitapp.util.asUserNetwor
 import com.example.gitapp.util.hideKeyboard
 import javax.inject.Inject
 
@@ -63,7 +64,7 @@ class LoginFragment : Fragment() {
         ViewModel.user.observe(requireActivity()) { result ->
             when (result) {
                 is Result.Success ->
-                    findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToProfileFragment(result.data))
+                    findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToProfileFragment(result.data.asUserNetwor()))
                 is Result.Error ->
                     when (result.error) {
                         is ErrorEntity.Credentials -> Toast.makeText(context, getString(R.string.CredentialsError), Toast.LENGTH_SHORT).show()
