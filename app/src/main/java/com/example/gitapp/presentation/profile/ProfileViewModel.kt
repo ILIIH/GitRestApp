@@ -7,9 +7,12 @@ import com.example.core.Domain.Repo
 import com.example.core.Domain.User
 import com.example.core.Domain.helpers.Result
 import com.example.gitapp.framework.GithubRepository
+import io.reactivex.disposables.CompositeDisposable
+import javax.inject.Inject
 
-class ProfileViewModel(private val Repository: GithubRepository) : ViewModel() {
+class ProfileViewModel @Inject constructor(private val Repository: GithubRepository) : ViewModel() {
 
+    var disposiables: CompositeDisposable = Repository.disposables
     private var _user = MutableLiveData<User>()
     val user: LiveData<User>
         get() = _user
@@ -21,5 +24,10 @@ class ProfileViewModel(private val Repository: GithubRepository) : ViewModel() {
     fun setsUser(current_user: User) {
         _user.postValue(current_user)
         Repository.getRepository(current_user.login)
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        disposiables.clear()
     }
 }

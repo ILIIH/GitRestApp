@@ -15,6 +15,7 @@ interface AppComponent {
         fun create(@BindsInstance context: Context): AppComponent
     }
 
+    fun viewModelsFactory(): ViewModelFactory
     fun loginInject(app: LoginFragment)
     fun profileInject(app: ProfileFragment)
 }

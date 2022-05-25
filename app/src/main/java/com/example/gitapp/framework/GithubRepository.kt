@@ -10,10 +10,13 @@ import com.example.core.data.GitRepository
 import com.example.gitapp.framework.network.GithubService
 import com.example.gitapp.util.asRepoDomain
 import com.example.gitapp.util.asUserDomain
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class GithubRepository @Inject constructor(val gitServise: GithubService) : GitRepository {
+
+    val disposables = CompositeDisposable()
 
     private var _user = MutableLiveData<Result<User>>()
     val user: LiveData<Result<User>>
@@ -30,7 +33,7 @@ class GithubRepository @Inject constructor(val gitServise: GithubService) : GitR
             return
         }
 
-        gitServise.autintificate("token $token").subscribeOn(Schedulers.io()).subscribeOn(Schedulers.io())
+        val disposiable = gitServise.autintificate("token $token").subscribeOn(Schedulers.io()).subscribeOn(Schedulers.io())
             .subscribe(
                 { next_item ->
                     if (next_item.login == login)_user.postValue(Result.Success(next_item.asUserDomain()))
@@ -48,12 +51,15 @@ class GithubRepository @Inject constructor(val gitServise: GithubService) : GitR
                     )
                 )
             }
+        disposables.add(disposiable)
     }
 
     override fun getRepository(UserName: String) {
-        gitServise.getRepo(UserName).subscribeOn(Schedulers.io()).subscribe(
+        val disposiable = gitServise.getRepo(UserName).subscribeOn(Schedulers.io()).subscribe(
             { next_item -> _repo.postValue(Result.Success(next_item.map { it.asRepoDomain() })) },
             { _repo.postValue(Result.Error(ErrorEntity.Network)) }
         )
+
+        disposables.add(disposiable)
     }
 }

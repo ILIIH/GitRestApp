@@ -6,20 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import com.example.core.Domain.User
+import androidx.fragment.app.viewModels
 import com.example.core.Domain.helpers.Result
 import com.example.gitapp.R
 import com.example.gitapp.databinding.FragmentProfileBinding
-import com.example.gitapp.di.MyApplication
 import com.example.gitapp.util.asUserDomain
-import javax.inject.Inject
+import com.example.gitapp.util.getAppComponent
 
 class ProfileFragment : Fragment() {
 
-    @Inject
-    lateinit var vmFactory: ProfileViewModelFactory
-    lateinit var ViewModel: ProfileViewModel
+    val viewModel: ProfileViewModel by viewModels {
+        getAppComponent().viewModelsFactory()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,24 +25,20 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        (requireActivity().applicationContext as MyApplication).appComponent.profileInject(this)
-
         val view = FragmentProfileBinding.inflate(inflater)
         val profileAdaptor = ProfileAdapter()
         view.RepositoryRecycler.adapter = profileAdaptor
 
-        ViewModel = ViewModelProvider(this, vmFactory).get(ProfileViewModel::class.java)
-
         val currentUser = ProfileFragmentArgs.fromBundle(requireArguments()).user
 
-        ViewModel.repo.observe(viewLifecycleOwner) { result ->
+        viewModel.repo.observe(viewLifecycleOwner) { result ->
             when (result) {
                 is Result.Success -> profileAdaptor.addHeaderAndSubmitList(result.data, currentUser.asUserDomain())
                 is Result.Error -> Toast.makeText(context, getString(R.string.RepositoryError), Toast.LENGTH_SHORT).show()
             }
         }
 
-        ViewModel.setsUser(currentUser.asUserDomain())
+        viewModel.setsUser(currentUser.asUserDomain())
 
         return view.root
     }
