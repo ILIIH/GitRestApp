@@ -1,7 +1,9 @@
 package com.example.gitapp.di
 
+
+
 import com.example.gitapp.framework.network.GithubService
-import com.example.gitapp.util.baceURL
+import com.example.gitapp.util.BaceURL
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -10,18 +12,20 @@ import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
-class NetworkModule {
+object NetworkModule {
     @Singleton
+    @JvmStatic
     @Provides
     fun provideRetrofit(): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(baceURL)
+            .baseUrl(BaceURL)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
     }
 
     @Singleton
+    @JvmStatic
     @Provides
     fun provideApi(retrofit: Retrofit): GithubService {
         return retrofit.create(GithubService::class.java)

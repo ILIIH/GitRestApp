@@ -1,21 +1,11 @@
 package com.example.gitapp.di
 
-import android.content.Context
-import com.example.gitapp.presentation.login.LoginFragment
-import com.example.gitapp.presentation.profile.ProfileFragment
-import dagger.BindsInstance
+import com.example.gitapp.framework.GithubRepository
 import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [NetworkModule::class])
+@Component(modules = [NetworkModule::class, RepoBindingModule::class])
 interface AppComponent {
-    @Component.Factory
-    interface Factory {
-        fun create(@BindsInstance context: Context): AppComponent
-    }
-
-    fun viewModelsFactory(): ViewModelFactory
-    fun loginInject(app: LoginFragment)
-    fun profileInject(app: ProfileFragment)
+    fun getRepo(): GithubRepository
 }

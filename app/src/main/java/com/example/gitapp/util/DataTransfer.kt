@@ -1,7 +1,7 @@
 package com.example.gitapp.util
 
-import com.example.core.Domain.Repo
-import com.example.core.Domain.User
+import com.example.core.domain.Repo
+import com.example.core.domain.User
 import com.example.gitapp.framework.network.RepoNetworkEntity
 import com.example.gitapp.framework.network.UserNetworkEntity
 

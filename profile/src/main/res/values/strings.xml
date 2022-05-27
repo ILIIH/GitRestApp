@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Profile</string>
+    <string name="RepositoryError">Error could not download your repository</string>
+</resources>

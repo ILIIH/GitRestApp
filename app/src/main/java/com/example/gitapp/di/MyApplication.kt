@@ -9,6 +9,6 @@ open class MyApplication : Application() {
     }
 
     open fun initializeComponent(): AppComponent {
-        return DaggerAppComponent.factory().create(applicationContext)
+        return DaggerAppComponent.create()
     }
 }

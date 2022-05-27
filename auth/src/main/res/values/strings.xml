@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">GitApp</string>
+    <string name="CredentialsError">Error wrong credentials</string>
+    <string name="InternetError">Error no internet</string>
+    <string name="TockenError">Wrong token</string>
+
+    <string name="user_name">User name</string>
+    <string name="Auth_token">Auth token</string>
+    <string name="enter">Enter</string>
+
+</resources>
