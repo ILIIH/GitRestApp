@@ -1,4 +1,4 @@
-package com.example.profile.profile
+package com.example.profile.profile.ProfileFragment
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

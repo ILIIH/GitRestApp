@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Profile</string>
     <string name="RepositoryError">Error could not download your repository</string>
+    <string name="Search">Enter name of repository</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -1,8 +1,8 @@
 package com.example.gitapp.framework
 
+import com.example.core.data.GitRepository
 import com.example.core.domain.Repo
 import com.example.core.domain.User
-import com.example.core.data.GitRepository
 import com.example.gitapp.framework.network.GithubService
 import com.example.gitapp.util.asRepoDomain
 import com.example.gitapp.util.asUserDomain

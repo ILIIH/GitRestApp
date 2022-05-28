@@ -7,7 +7,7 @@
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
-        app:cardBackgroundColor="#E6E6E6"
+        app:cardBackgroundColor="@color/repocolor"
         app:cardCornerRadius="8dp"
         app:cardElevation="8dp"
         style="@style/RepoCard">
