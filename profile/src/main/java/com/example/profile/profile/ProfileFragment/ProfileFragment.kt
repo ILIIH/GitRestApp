@@ -7,15 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.example.core.domain.User
-import com.example.core.domain.helpers.Result
-import com.example.profile.R
 import com.example.profile.databinding.FragmentProfileBinding
 import com.example.profile.profile.ProfileActivity
 
@@ -34,7 +31,7 @@ class ProfileFragment : Fragment() {
 
         val view = FragmentProfileBinding.inflate(inflater, container, false)
 
-        view.MemoryUsage.text = currentUser.disk_usage.toString() + " Mb"
+        view.MemoryUsage.text ="Memory usage : "+ currentUser.disk_usage.toString() + " Mb"
         view.CountPublicRepository.text = "public repository : " + currentUser.public_repos.toString()
         view.NickName.text = currentUser.login
         Glide.with(view.Avatar.context).load(Uri.parse(currentUser.avatar_url))
@@ -47,10 +44,7 @@ class ProfileFragment : Fragment() {
         viewModel.setsUser(currentUser)
 
         viewModel.repo.observe(viewLifecycleOwner) { result ->
-            when (result) {
-                is Result.Success -> profileAdaptor.addHeaderAndSubmitList(result.data)
-                is Result.Error -> Toast.makeText(context, getString(R.string.RepositoryError), Toast.LENGTH_SHORT).show()
-            }
+            profileAdaptor.submitData(lifecycle, result)
         }
 
         view.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {

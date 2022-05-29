@@ -3,6 +3,9 @@ package com.example.profile.profile.ProfileFragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.rxjava2.cachedIn
 import com.example.core.domain.Repo
 import com.example.core.domain.User
 import com.example.core.domain.helpers.ErrorEntity
@@ -18,17 +21,24 @@ class ProfileViewModel @Inject constructor(private val Repository: GithubReposit
     val user: LiveData<User>
         get() = _user
 
-    private var _repo = MutableLiveData<Result<List<Repo>>>()
-    val repo: LiveData<Result<List<Repo>>>
+    private var _repo = MutableLiveData<PagingData<Repo>>()
+    val repo: LiveData<PagingData<Repo>>
         get() = _repo
 
     fun setsUser(current_user: User) {
         _user.postValue(current_user)
 
-        val disposiable = Repository.getRepository(current_user.login).subscribe(
-            { next_item -> _repo.postValue(Result.Success(next_item)) },
+        val disposiable = Repository.getRepository(current_user.login)
+            .cachedIn(viewModelScope)
+            .subscribe {
+                var t= it
+                _repo.value = it }
+        /*
+        .subscribe(
+            { next_item -> _repo.postValue(next_item)) },
             { _repo.postValue(Result.Error(ErrorEntity.Network)) }
         )
+         */
 
         disposiables.add(disposiable)
     }

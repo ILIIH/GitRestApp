@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
@@ -17,11 +18,11 @@ import kotlinx.coroutines.withContext
 import java.util.*
 
 class ProfileAdapter() :
-    ListAdapter<UiModel, ProfileAdapter.RepoViewHolder>(DiffCallback()),
+    PagingDataAdapter<Repo, ProfileAdapter.RepoViewHolder>(DiffCallback()),
     Filterable {
 
-    private val dataSet = ArrayList<UiModel.RepoItem>()
-    private val FullList = ArrayList<UiModel.RepoItem>()
+    private val dataSet = ArrayList<Repo>()
+    private val FullList = ArrayList<Repo>()
     private val adapterScope = CoroutineScope(Dispatchers.Default)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepoViewHolder {
@@ -29,20 +30,10 @@ class ProfileAdapter() :
     }
 
     override fun onBindViewHolder(holder: RepoViewHolder, position: Int) {
-        val item = getItem(position) as UiModel.RepoItem
-        holder.bind(item.repo)
+        val item = getItem(position)
+        item?.let { holder.bind(it) }
     }
 
-    fun addHeaderAndSubmitList(list: List<Repo>) {
-        adapterScope.launch {
-            val items = list.map { UiModel.RepoItem(it) }
-            FullList.addAll(items)
-            dataSet.addAll(items)
-            withContext(Dispatchers.Main) {
-                submitList(dataSet as List<UiModel>?)
-            }
-        }
-    }
 
     // //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -71,7 +62,7 @@ class ProfileAdapter() :
 
     private val Searched_Filter: Filter = object : Filter() {
         override fun performFiltering(constraint: CharSequence): FilterResults {
-            val filteredList: ArrayList<UiModel.RepoItem> = ArrayList()
+            val filteredList: ArrayList<Repo> = ArrayList()
             if (constraint == null || constraint.length == 0) {
                 filteredList.addAll(FullList)
             } else {
@@ -79,7 +70,7 @@ class ProfileAdapter() :
                     constraint.toString().lowercase(Locale.getDefault()).trim { it <= ' ' }
                 for (item in FullList) {
 
-                    if (item.repo.fullName.toLowerCase().contains(filterPattern)) {
+                    if (item.fullName.toLowerCase().contains(filterPattern)) {
                         filteredList.add(item)
                     }
                 }
@@ -91,25 +82,19 @@ class ProfileAdapter() :
 
         override fun publishResults(constraint: CharSequence, results: FilterResults) {
             dataSet.clear()
-            dataSet.addAll(results.values as ArrayList<UiModel.RepoItem>)
+            dataSet.addAll(results.values as ArrayList<Repo>)
             notifyDataSetChanged()
         }
     }
 }
 
-class DiffCallback : DiffUtil.ItemCallback<UiModel>() {
-    override fun areItemsTheSame(oldItem: UiModel, newItem: UiModel): Boolean {
+class DiffCallback : DiffUtil.ItemCallback<Repo>() {
+    override fun areItemsTheSame(oldItem: Repo, newItem: Repo): Boolean {
         return oldItem.id == newItem.id
     }
-    override fun areContentsTheSame(oldItem: UiModel, newItem: UiModel): Boolean {
+    override fun areContentsTheSame(oldItem: Repo, newItem: Repo): Boolean {
         return oldItem == newItem
     }
 }
 
-sealed class UiModel {
-    abstract val id: Long
 
-    data class RepoItem(val repo: Repo) : UiModel() {
-        override val id = repo.id
-    }
-}

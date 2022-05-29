@@ -23,9 +23,9 @@
 
 
             <LinearLayout
-                android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="170dp"
+                android:layout_marginTop="20dp"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
@@ -34,11 +34,12 @@
                     android:id="@+id/Memor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginTop="10dp"
                     android:layout_weight="1"
 
+                    android:fontFamily="@font/arbutus"
                     android:gravity="center_horizontal"
-                    android:text="Memory :"
+                    android:text=" Your Profile"
                     android:textSize="20sp" />
 
                 <TextView
