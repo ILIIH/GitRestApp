@@ -1,4 +1,4 @@
-package com.example.profile.profile.ProfileFragment
+package com.example.profile.profile.profileFragment
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -14,10 +14,8 @@ import javax.inject.Inject
 
 class ProfileViewModel @Inject constructor(private val Repository: GithubRepository) : ViewModel() {
 
-    var disposiables: CompositeDisposable = CompositeDisposable()
+    private var disposiables: CompositeDisposable = CompositeDisposable()
     private var _user = MutableLiveData<User>()
-    val user: LiveData<User>
-        get() = _user
 
     private var _repo = MutableLiveData<PagingData<Repo>>()
     val repo: LiveData<PagingData<Repo>>
@@ -29,7 +27,6 @@ class ProfileViewModel @Inject constructor(private val Repository: GithubReposit
         val disposiable = Repository.getRepository(current_user.login)
             .cachedIn(viewModelScope)
             .subscribe {
-                var t = it
                 _repo.value = it
             }
 

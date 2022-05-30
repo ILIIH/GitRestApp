@@ -1,6 +1,6 @@
 package com.example.profile.di
 import com.example.gitapp.di.AppComponent
-import com.example.profile.profile.ProfileFragment.ProfileVIewModelFactory
+import com.example.profile.profile.profileFragment.ProfileVIewModelFactory
 import dagger.Component
 
 @ProfileScope

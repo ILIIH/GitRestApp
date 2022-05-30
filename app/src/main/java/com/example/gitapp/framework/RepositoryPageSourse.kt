@@ -7,9 +7,7 @@ import com.example.gitapp.framework.network.GithubService
 import com.example.gitapp.util.asRepoDomain
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
-import javax.inject.Singleton
 
-@Singleton
 class RepositoryPageSourse constructor(val GitSevise: GithubService, val userName: String) : RxPagingSource<Int, Repo>() {
 
     override fun getRefreshKey(state: PagingState<Int, Repo>): Int? {

@@ -11,6 +11,7 @@ import com.example.gitapp.framework.network.GithubService
 import com.example.gitapp.util.asUserDomain
 import io.reactivex.Flowable
 import io.reactivex.Observable
+import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
@@ -19,7 +20,7 @@ class GithubRepository @Inject constructor(
 ) :
     GitRepository {
 
-    override fun autentificate(token: String, login: String): Observable<User> {
+    override fun autentificate(token: String, login: String): Single<User> {
 
         return gitServise.autintificate("token $token")
             .subscribeOn(Schedulers.io())

@@ -1,5 +1,6 @@
-package com.example.profile.profile.ProfileFragment
+package com.example.profile.profile.profileFragment
 
+import android.annotation.SuppressLint
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -14,26 +15,30 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.example.core.domain.User
+import com.example.profile.R
 import com.example.profile.databinding.FragmentProfileBinding
 import com.example.profile.profile.ProfileActivity
 
 class ProfileFragment : Fragment() {
 
-    val viewModel: ProfileViewModel by viewModels {
+    private val viewModel: ProfileViewModel by viewModels {
         (activity as ProfileActivity).profileComponent.viewModelsFactory()
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val currentUser: User = (activity as ProfileActivity).currentUser
+    ): View {
 
         val view = FragmentProfileBinding.inflate(inflater, container, false)
 
-        view.MemoryUsage.text = "Memory usage : " + currentUser.disk_usage.toString() + " Mb"
-        view.CountPublicRepository.text = "public repository : " + currentUser.public_repos.toString()
+        val currentUser: User = (activity as ProfileActivity).currentUser
+
+        view.MemoryUsage.text = getString(R.string.MemoryUse) + currentUser.disk_usage.toString() + getString(R.string.mb)
+        view.CountPublicRepository.text =
+            getString(R.string.Public_repo) + currentUser.public_repos.toString()
         view.NickName.text = currentUser.login
         Glide.with(view.Avatar.context).load(Uri.parse(currentUser.avatar_url))
             .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
@@ -43,7 +48,7 @@ class ProfileFragment : Fragment() {
         view.RepositoryRecycler.adapter = profileAdaptor
 
         viewModel.setsUser(currentUser)
-
+        
         viewModel.repo.observe(viewLifecycleOwner) { result ->
             profileAdaptor.submitData(lifecycle, result.map { Pair(it, true) })
         }

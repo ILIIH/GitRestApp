@@ -1,4 +1,4 @@
-package com.example.profile.profile.RepoInfoFragment
+package com.example.profile.profile.repoInfoFragment
 
 import android.content.Intent
 import android.net.Uri
@@ -18,12 +18,12 @@ class RepoItemFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val view = FragmentRepoItemBinding.inflate(inflater, container, false)
         view.RepoName.text = args.repo.name
         view.Language.text = args.repo.language
         view.Description.text = args.repo.description
-        var url = args.repo.url
+        val url = args.repo.url
 
         view.openCodeButton.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))

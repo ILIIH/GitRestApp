@@ -10,11 +10,11 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.auth.databinding.FragmentLoginBinding
 import com.example.core.domain.helpers.ErrorEntity
 import com.example.core.domain.helpers.Result
-import com.example.gitapp.util.asUserNetwor
-import com.example.gitapp.util.hideKeyboard
 import com.example.di.AuthComponent
 import com.example.di.DaggerAuthComponent
 import com.example.gitapp.di.MyApplication
+import com.example.gitapp.util.asUserNetwor
+import com.example.gitapp.util.hideKeyboard
 import com.example.profile.profile.ProfileActivity
 
 class LoginActivity : AppCompatActivity() {
@@ -73,13 +73,12 @@ class LoginActivity : AppCompatActivity() {
         setContentView(bindidg.root)
     }
 
-    val authComponent: AuthComponent by lazy {
+    private val authComponent: AuthComponent by lazy {
         initializeAuthComponent()
     }
 
-    open fun initializeAuthComponent(): AuthComponent {
+    fun initializeAuthComponent(): AuthComponent {
         return DaggerAuthComponent.builder().appComponent((applicationContext as MyApplication).appComponent)
             .build()
     }
-
 }

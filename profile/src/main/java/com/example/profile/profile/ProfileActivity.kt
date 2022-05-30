@@ -16,16 +16,18 @@ class ProfileActivity : AppCompatActivity() {
         initializeProfileComponent()
     }
 
-    open fun initializeProfileComponent(): ProfileComponent {
+    fun initializeProfileComponent(): ProfileComponent {
         return DaggerProfileComponent.builder().appComponent((applicationContext as MyApplication).appComponent)
             .build()
     }
-    
-    lateinit var currentUser: User
+
+    val currentUser: User by lazy {
+        intent.getParcelableExtra<UserNetworkEntity>("User")
+            ?.asUserDomain() ?: User("", 0, 0, "", 0)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        currentUser = intent.getParcelableExtra<UserNetworkEntity>("User")!!.asUserDomain()
         val view = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(view.root)
     }

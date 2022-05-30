@@ -10,7 +10,7 @@ class LoginVIewModelFactory @Inject constructor(
 ) : ViewModelProvider.Factory {
 
     private val providers = mapOf<Class<*>, Provider<out ViewModel>>(
-        com.example.auth.LoginViewModel::class.java to LoginModelProvider,
+        LoginViewModel::class.java to LoginModelProvider,
     )
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {

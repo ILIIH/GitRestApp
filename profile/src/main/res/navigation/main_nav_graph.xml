@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.profile.profile.ProfileFragment.ProfileFragment"
+        android:name="com.example.profile.profile.profileFragment.ProfileFragment"
         android:label="ProfileFragment" >
         <action
             android:id="@+id/to_repo_detail"
@@ -14,7 +14,7 @@
     </fragment>
     <fragment
         android:id="@+id/repoItemFragment"
-        android:name="com.example.profile.profile.RepoInfoFragment.RepoItemFragment"
+        android:name="com.example.profile.profile.repoInfoFragment.RepoItemFragment"
         android:label="RepoItemFragment" >
         <argument
             android:name="Repo"
