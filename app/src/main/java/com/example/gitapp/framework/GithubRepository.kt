@@ -10,12 +10,11 @@ import com.example.core.domain.User
 import com.example.gitapp.framework.network.GithubService
 import com.example.gitapp.util.asUserDomain
 import io.reactivex.Flowable
-import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class GithubRepository @Inject constructor(
+open class GithubRepository @Inject constructor(
     val gitServise: GithubService,
 ) :
     GitRepository {

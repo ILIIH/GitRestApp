@@ -1,7 +1,8 @@
 package com.example.gitapp.di
 
+
+import com.example.gitapp.BuildConfig
 import com.example.gitapp.framework.network.GithubService
-import com.example.gitapp.util.BaceURL
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -16,7 +17,7 @@ object NetworkModule {
     @Provides
     fun provideRetrofit(): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(BaceURL)
+            .baseUrl(BuildConfig.BaceURL)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()

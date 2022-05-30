@@ -21,7 +21,11 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField "String", "BaceURL", "\"https://api.github.com\""
+        }
         release {
+            buildConfigField "String", "BaceURL", "\"https://api.github.com\""
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
