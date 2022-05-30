@@ -8,8 +8,6 @@ import androidx.paging.PagingData
 import androidx.paging.rxjava2.cachedIn
 import com.example.core.domain.Repo
 import com.example.core.domain.User
-import com.example.core.domain.helpers.ErrorEntity
-import com.example.core.domain.helpers.Result
 import com.example.gitapp.framework.GithubRepository
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
@@ -31,14 +29,9 @@ class ProfileViewModel @Inject constructor(private val Repository: GithubReposit
         val disposiable = Repository.getRepository(current_user.login)
             .cachedIn(viewModelScope)
             .subscribe {
-                var t= it
-                _repo.value = it }
-        /*
-        .subscribe(
-            { next_item -> _repo.postValue(next_item)) },
-            { _repo.postValue(Result.Error(ErrorEntity.Network)) }
-        )
-         */
+                var t = it
+                _repo.value = it
+            }
 
         disposiables.add(disposiable)
     }

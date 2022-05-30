@@ -14,3 +14,6 @@ fun UserNetworkEntity.asUserDomain(): User {
 fun User.asUserNetwor(): UserNetworkEntity {
     return UserNetworkEntity(avatar_url, disk_usage, id, login, public_repos)
 }
+fun Repo.asRepoNetworkEntity(): RepoNetworkEntity {
+    return RepoNetworkEntity(id, name, fullName, description, url, stars, forks, language)
+}

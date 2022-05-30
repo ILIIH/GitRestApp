@@ -23,6 +23,7 @@
         <entry key="profile/src/main/res/drawable/search_view_shape.xml" value="0.2545" />
         <entry key="profile/src/main/res/layout/activity_profile.xml" value="0.35625" />
         <entry key="profile/src/main/res/layout/fragment_profile.xml" value="0.33" />
+        <entry key="profile/src/main/res/layout/fragment_repo_item.xml" value="0.35625" />
         <entry key="profile/src/main/res/layout/head.xml" value="0.35625" />
         <entry key="profile/src/main/res/layout/repo_item.xml" value="0.35625" />
       </map>

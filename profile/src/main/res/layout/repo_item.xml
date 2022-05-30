@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 <LinearLayout
+    android:id="@+id/body"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -24,7 +25,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:text="MyRepository"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,7 +33,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="Description fgdgddf dasfafsfsd"
                 app:layout_constraintStart_toStartOf="@+id/Repo_name"
                 app:layout_constraintTop_toBottomOf="@+id/Repo_name" />
 
@@ -43,7 +42,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="32dp"
-                android:text="5/10"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>

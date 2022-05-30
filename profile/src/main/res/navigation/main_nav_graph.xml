@@ -7,5 +7,17 @@
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.profile.profile.ProfileFragment.ProfileFragment"
-        android:label="ProfileFragment" />
+        android:label="ProfileFragment" >
+        <action
+            android:id="@+id/to_repo_detail"
+            app:destination="@id/repoItemFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/repoItemFragment"
+        android:name="com.example.profile.profile.RepoInfoFragment.RepoItemFragment"
+        android:label="RepoItemFragment" >
+        <argument
+            android:name="Repo"
+            app:argType="com.example.gitapp.framework.network.RepoNetworkEntity" />
+    </fragment>
 </navigation>

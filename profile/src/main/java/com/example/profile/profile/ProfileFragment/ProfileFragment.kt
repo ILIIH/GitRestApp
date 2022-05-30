@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.paging.map
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
@@ -31,7 +32,7 @@ class ProfileFragment : Fragment() {
 
         val view = FragmentProfileBinding.inflate(inflater, container, false)
 
-        view.MemoryUsage.text ="Memory usage : "+ currentUser.disk_usage.toString() + " Mb"
+        view.MemoryUsage.text = "Memory usage : " + currentUser.disk_usage.toString() + " Mb"
         view.CountPublicRepository.text = "public repository : " + currentUser.public_repos.toString()
         view.NickName.text = currentUser.login
         Glide.with(view.Avatar.context).load(Uri.parse(currentUser.avatar_url))
@@ -44,7 +45,7 @@ class ProfileFragment : Fragment() {
         viewModel.setsUser(currentUser)
 
         viewModel.repo.observe(viewLifecycleOwner) { result ->
-            profileAdaptor.submitData(lifecycle, result)
+            profileAdaptor.submitData(lifecycle, result.map { Pair(it, true) })
         }
 
         view.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -54,7 +55,7 @@ class ProfileFragment : Fragment() {
 
             override fun onQueryTextChange(newText: String): Boolean {
                 Log.d("newText", newText)
-                profileAdaptor.getFilter().filter(newText)
+                profileAdaptor.Filtrate(newText)
                 return false
             }
         })

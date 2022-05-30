@@ -2,7 +2,7 @@ package com.example.core.domain
 
 data class Repo(
     val id: Long,
-    val name: String,
+    var name: String,
     val fullName: String,
     val description: String?,
     val url: String,
