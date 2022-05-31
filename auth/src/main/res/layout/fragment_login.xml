@@ -64,6 +64,8 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
+                android:focusableInTouchMode="true"
+                android:focusable="true"
                 android:id="@+id/Enter_Button"
                 android:text="@string/enter"
                 app:layout_constraintBottom_toBottomOf="parent"

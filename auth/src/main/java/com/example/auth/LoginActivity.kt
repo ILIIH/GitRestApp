@@ -13,7 +13,7 @@ import com.example.core.domain.helpers.Result
 import com.example.di.AuthComponent
 import com.example.di.DaggerAuthComponent
 import com.example.gitapp.di.MyApplication
-import com.example.gitapp.util.asUserNetwor
+import com.example.gitapp.util.asUserNetwork
 import com.example.gitapp.util.hideKeyboard
 import com.example.profile.profile.ProfileActivity
 
@@ -54,7 +54,7 @@ class LoginActivity : AppCompatActivity() {
             when (result) {
                 is Result.Success -> {
                     val intent = Intent(this, ProfileActivity::class.java)
-                    intent.putExtra("User", result.data.asUserNetwor())
+                    intent.putExtra("User", result.data.asUserNetwork())
                     startActivity(intent)
                 }
                 is Result.Error ->

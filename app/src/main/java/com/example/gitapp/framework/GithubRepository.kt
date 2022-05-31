@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import androidx.paging.rxjava2.cachedIn
 import androidx.paging.rxjava2.flowable
 import com.example.core.data.GitRepository
 import com.example.core.domain.Repo
@@ -16,7 +15,6 @@ import com.example.gitapp.framework.network.GithubService
 import com.example.gitapp.util.asUserDomain
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.coroutines.GlobalScope
 import javax.inject.Inject
 
 open class GithubRepository @Inject constructor(

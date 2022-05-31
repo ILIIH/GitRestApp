@@ -1,6 +1,5 @@
 package com.example.gitapp.di
 
-
 import com.example.gitapp.BuildConfig
 import com.example.gitapp.framework.network.GithubService
 import dagger.Module
