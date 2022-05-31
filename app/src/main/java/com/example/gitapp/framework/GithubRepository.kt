@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import androidx.paging.rxjava2.cachedIn
 import androidx.paging.rxjava2.flowable
 import com.example.core.data.GitRepository
 import com.example.core.domain.Repo
@@ -13,9 +14,9 @@ import com.example.core.domain.helpers.ErrorEntity
 import com.example.core.domain.helpers.Result
 import com.example.gitapp.framework.network.GithubService
 import com.example.gitapp.util.asUserDomain
-import io.reactivex.Flowable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.GlobalScope
 import javax.inject.Inject
 
 open class GithubRepository @Inject constructor(
@@ -42,12 +43,13 @@ open class GithubRepository @Inject constructor(
                     else _user.postValue(Result.Error(ErrorEntity.Credentials))
                 }
             ) { Error ->
-                Error.message; if (Error.message.equals("Bad credentials")) _user.postValue(
+                Error.message
+                if (Error.message.equals("Bad credentials")) _user.postValue(
                     Result.Error(
                         ErrorEntity.Credentials
                     )
                 )
-                else if (Error.message.equals("Unable to resolve host ")) _user.postValue(
+                else _user.postValue(
                     Result.Error(
                         ErrorEntity.Network
                     )
@@ -57,8 +59,15 @@ open class GithubRepository @Inject constructor(
         disposiables.add(disposiable)
     }
 
-    override fun getRepository(UserName: String): Flowable<PagingData<Repo>> {
-        return Pager(
+    // ////////////////////////////////////////////////////////
+
+    private var _repo = MutableLiveData<PagingData<Repo>>()
+    val repo: LiveData<PagingData<Repo>>
+        get() = _repo
+
+    override fun getRepository(UserName: String) {
+
+        val disposiable = Pager(
             config = PagingConfig(
                 pageSize = 3,
                 enablePlaceholders = false,
@@ -66,5 +75,10 @@ open class GithubRepository @Inject constructor(
             ),
             pagingSourceFactory = { RepositoryPageSourse(gitServise, UserName) }
         ).flowable
+            .subscribe {
+                _repo.value = it
+            }
+
+        disposiables.add(disposiable)
     }
 }
