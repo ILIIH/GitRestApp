@@ -42,14 +42,15 @@ open class GithubRepository @Inject constructor(
                 }
             ) { Error ->
                 Error.message
-                if (Error.message.equals("Bad credentials")) _user.postValue(
-                    Result.Error(
-                        ErrorEntity.Credentials
+                if (Error.message.equals("401"))
+                    _user.postValue(
+                        Result.Error(
+                            ErrorEntity.Network
+                        )
                     )
-                )
                 else _user.postValue(
                     Result.Error(
-                        ErrorEntity.Network
+                        ErrorEntity.Credentials
                     )
                 )
             }
