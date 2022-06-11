@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Profile</string>
+    <string name="RepositoryError">Error could not download your repository</string>
+    <string name="Search">Enter name of repository</string>
+    <string name="open_code"><![CDATA[<code>]]></string>
+    <string name="MemoryUse">Memory usage : </string>
+    <string name="mb"> Mb</string>
+    <string name="Public_repo">public repository : </string>
+    <string name="user">User</string>
+</resources>
